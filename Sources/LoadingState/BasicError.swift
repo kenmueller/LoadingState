@@ -1,6 +1,6 @@
 import Foundation
 
-enum BasicError: LocalizedError {
+public enum BasicError: LocalizedError {
 	case `default`
 	case message(_ message: String)
 	

@@ -1,6 +1,6 @@
 import Foundation
 
-enum LoadingState: Equatable {
+public enum LoadingState: Equatable {
 	static var loading: Self { .loading() }
 	static var success: Self { .success() }
 	static var failure: Self { .failure() }
