@@ -4,7 +4,7 @@ public enum BasicError: LocalizedError {
 	case `default`
 	case message(_ message: String)
 	
-	var errorDescription: String? {
+	public var errorDescription: String? {
 		switch self {
 		case .default:
 			return nil
@@ -13,7 +13,7 @@ public enum BasicError: LocalizedError {
 		}
 	}
 	
-	var localizedDescription: String {
+	public var localizedDescription: String {
 		errorDescription ?? "Default basic error"
 	}
 }

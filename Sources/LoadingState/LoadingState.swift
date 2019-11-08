@@ -1,11 +1,11 @@
 import Foundation
 
 public enum LoadingState: Equatable {
-	static var loading: Self { .loading() }
-	static var success: Self { .success() }
-	static var failure: Self { .failure() }
+	public static var loading: Self { .loading() }
+	public static var success: Self { .success() }
+	public static var failure: Self { .failure() }
 	
-	static func failure(endDate: Date = .init(), message: String = "Unknown error") -> Self {
+	public static func failure(endDate: Date = .init(), message: String = "Unknown error") -> Self {
 		.failure(endDate: endDate, error: BasicError.message(message))
 	}
 	
@@ -14,41 +14,41 @@ public enum LoadingState: Equatable {
 	case success(endDate: Date = .init())
 	case failure(endDate: Date = .init(), error: Error)
 	
-	init(_ value: Self = .none) {
+	public init(_ value: Self = .none) {
 		self = value
 	}
 	
 	@discardableResult
-	mutating func reset() -> Self {
+	public mutating func reset() -> Self {
 		self = .none
 		return self
 	}
 	
 	@discardableResult
-	mutating func startLoading() -> Self {
+	public mutating func startLoading() -> Self {
 		self = .loading
 		return self
 	}
 	
 	@discardableResult
-	mutating func succeed() -> Self {
+	public mutating func succeed() -> Self {
 		self = .success
 		return self
 	}
 	
 	@discardableResult
-	mutating func fail(error: Error) -> Self {
+	public mutating func fail(error: Error) -> Self {
 		self = .failure(error: error)
 		return self
 	}
 	
 	@discardableResult
-	mutating func fail(message: String) -> Self {
+	public mutating func fail(message: String) -> Self {
 		self = .failure(message: message)
 		return self
 	}
 	
-	var isNone: Bool {
+	public var isNone: Bool {
 		get {
 			if case .none = self {
 				return true
@@ -61,7 +61,7 @@ public enum LoadingState: Equatable {
 		}
 	}
 	
-	var isLoading: Bool {
+	public var isLoading: Bool {
 		get {
 			if case .loading(startDate: _) = self {
 				return true
@@ -73,7 +73,7 @@ public enum LoadingState: Equatable {
 		}
 	}
 	
-	var didSucceed: Bool {
+	public var didSucceed: Bool {
 		get {
 			if case .success(endDate: _) = self {
 				return true
@@ -85,7 +85,7 @@ public enum LoadingState: Equatable {
 		}
 	}
 	
-	var didFail: Bool {
+	public var didFail: Bool {
 		get {
 			if case .failure(endDate: _, error: _) = self {
 				return true
@@ -97,7 +97,7 @@ public enum LoadingState: Equatable {
 		}
 	}
 	
-	var error: Error? {
+	public var error: Error? {
 		if case let .failure(endDate: _, error: error) = self {
 			return error
 		}
@@ -117,15 +117,15 @@ public enum LoadingState: Equatable {
 		}
 	}
 	
-	var errorCode: Int? {
+	public var errorCode: Int? {
 		error?._code
 	}
 	
-	var errorMessage: String? {
+	public var errorMessage: String? {
 		error?.localizedDescription
 	}
 	
-	var date: Date? {
+	public var date: Date? {
 		switch self {
 		case .none:
 			return nil
@@ -138,7 +138,7 @@ public enum LoadingState: Equatable {
 		}
 	}
 	
-	static func == (lhs: Self, rhs: Self) -> Bool {
+	public static func == (lhs: Self, rhs: Self) -> Bool {
 		lhs.baseType == rhs.baseType
 	}
 }
