@@ -66,7 +66,6 @@ struct ContentView: View {
 	
 	var body: some View {
 		VStack {
-		
 			if loadingState.isNone {
 				Text("Click the button!")
 			} else if loadingState.isLoading {
@@ -76,11 +75,10 @@ struct ContentView: View {
 			} else {
 				Text("Oh no! An error occurred. \(loadingState.errorMessage!)")
 			}
-			
 			Button(action: {
 				loadingState.startLoading()
 				
-				DispatchQueue().asyncAfter(deadline: 5) {
+				DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
 					loadingState.succeed()
 				}
 			}) {
